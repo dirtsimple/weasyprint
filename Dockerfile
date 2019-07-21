@@ -9,10 +9,12 @@ RUN \
   echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
   echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
   apk update && \
-  apk add --no-cache \
-    gcc musl-dev jpeg-dev zlib-dev libffi-dev cairo-dev pango-dev gdk-pixbuf \
-    cairo ttf-freefont ttf-font-awesome && \
-  pip3 install --upgrade pip && pip3 install cffi cssselect2 cairosvg cairocffi WeasyPrint gunicorn flask dumb-init
+  apk add --virtual .build-deps gcc musl-dev jpeg-dev zlib-dev libffi-dev && \
+  apk add cairo-dev pango-dev gdk-pixbuf cairo ttf-freefont ttf-font-awesome && \
+  pip3 install --upgrade pip && \
+  pip3 install cffi cssselect2 cairosvg cairocffi WeasyPrint gunicorn flask dumb-init && \
+  apk del .build-deps && \
+  rm -f /var/cache/apk/*
 
 EXPOSE 80
 
