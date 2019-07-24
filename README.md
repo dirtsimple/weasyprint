@@ -25,6 +25,8 @@ If you want to also have the dev tools active, set the `WEASY_APP` environment v
 
 Note that none of these tools should be exposed to any external ports as they are not particularly secure (see [WeasyPrint's own security notes](https://weasyprint.readthedocs.io/en/stable/tutorial.html#security) for more on this).  Map the port to localhost or a loopback interface, or simply make it available to its clients via a shared docker network.
 
+By default, the web server runs as user and group `uwsgi` (uid 100, gid 101).  You can change this if needed by setting the container's `WEASY_USER` and `WEASY_GROUP` environment variables.  (Each can be a name or numeric ID, but if names are used they must be present in the container's `/etc/passwd` and `/etc/group` files.)
+
 Finally, note that the web server runs under gunicorn, which is essentially single-threaded for CPU-intensive tasks such as WeasyPrint.  This means that no document can start rendering until all previous documents have finished rendering, so wait times can be abritrarily high.  You probably don't want to directly interface a web application to this service, but should instead use an asynchronous task queue to process rendering requests and return the results to the user later.
 
 (Future versions of this image might support running multiple threads or processes; patches for such functionality are welcome.)

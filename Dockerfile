@@ -24,4 +24,6 @@ COPY tools.py ./
 ENTRYPOINT ["dumb-init", "--"]
 
 ENV WEASY_APP=tools:prod
-CMD gunicorn --bind 0.0.0.0:80 --timeout 90 --graceful-timeout 60 "$WEASY_APP"
+ENV WEASY_USER=uwsgi
+ENV WEASY_GROUP=uwsgi
+CMD gunicorn --bind 0.0.0.0:80 -u "$WEASY_USER" -g "$WEASY_GROUP" --timeout 90 --graceful-timeout 60 "$WEASY_APP"
