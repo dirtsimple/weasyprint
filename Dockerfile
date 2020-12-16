@@ -1,4 +1,4 @@
-FROM python:3.7-alpine3.8
+FROM python:3-alpine
 
 RUN apk upgrade --no-cache && apk add --no-cache uwsgi uwsgi-python3
 
@@ -24,6 +24,7 @@ COPY tools.py ./
 ENTRYPOINT ["dumb-init", "--"]
 
 ENV WEASY_APP=tools:prod
+ENV WEASY_PORT=8818
 ENV WEASY_USER=uwsgi
 ENV WEASY_GROUP=uwsgi
-CMD gunicorn --bind 0.0.0.0:80 -u "$WEASY_USER" -g "$WEASY_GROUP" --timeout 90 --graceful-timeout 60 "$WEASY_APP"
+CMD gunicorn --bind 0.0.0.0:$WEASY_PORT -u "$WEASY_USER" -g "$WEASY_GROUP" --timeout 90 --graceful-timeout 60 "$WEASY_APP"
