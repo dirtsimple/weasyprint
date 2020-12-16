@@ -13,7 +13,7 @@ usage: weasyprint [-h] [--version] [-e ENCODING] [-f {pdf,png}]
 weasyprint: error: the following arguments are required: input, output
 ```
 
-To run it as a web server, run it without any commands, and bind the web port (port 80) to a host as needed.  In this mode, the following routes are available:
+To run it as a web server, run it without any commands, and bind the web port (port 8818) to a host as needed.  In this mode, the following routes are available:
 
 * `/health` -- returns `ok` in plain text
 * `/pdf` or `/pdf?filename=xyz.pdf` -- send a `POST` with a Content-type of `text/html` to get back a PDF download with the specified filename (or `unnamed.pdf` if no name is given)
@@ -24,6 +24,8 @@ If you want to also have the dev tools active, set the `WEASY_APP` environment v
 * `/view/` -- displays a form that lets you input arbitrary URLs and render them as PNG or PDF
 
 Note that none of these tools should be exposed to any external ports as they are not particularly secure (see [WeasyPrint's own security notes](https://weasyprint.readthedocs.io/en/stable/tutorial.html#security) for more on this).  Map the port to localhost or a loopback interface, or simply make it available to its clients via a shared docker network.
+
+By default, the web server runs on port 8818. You can change this if needed by setting the container's `WEASY_PORT` environment variables.
 
 By default, the web server runs as user and group `uwsgi` (uid 100, gid 101).  You can change this if needed by setting the container's `WEASY_USER` and `WEASY_GROUP` environment variables.  (Each can be a name or numeric ID, but if names are used they must be present in the container's `/etc/passwd` and `/etc/group` files.)
 
