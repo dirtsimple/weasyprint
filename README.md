@@ -13,7 +13,11 @@ usage: weasyprint [-h] [--version] [-e ENCODING] [-f {pdf,png}]
 weasyprint: error: the following arguments are required: input, output
 ```
 
-To run it as a web server, run it without any commands, and bind the web port (port 8818) to a host as needed.  In this mode, the following routes are available:
+To run it as a web server, run it without any commands, and bind the web port (port 8818) to a host as needed.
+```shell
+$ docker run --publish 8818:8818 dirtsimple/weasyprint
+```
+In this mode, the following routes are available:
 
 * `/health` -- returns `ok` in plain text
 * `/pdf` or `/pdf?filename=xyz.pdf` -- send a `POST` with a Content-type of `text/html` to get back a PDF download with the specified filename (or `unnamed.pdf` if no name is given)
