@@ -5,7 +5,7 @@ This docker image for WeasyPrint can be used as both a command-line tool and as 
 To use it from the command line, just run the image with an explicit `weasyprint` command, e.g.:
 
 ```shell
-$ docker run --rm -it dirtsimple/weasyprint weasyprint
+$ docker run --rm -it ghcr.io/dirtsimple/weasyprint weasyprint
 usage: weasyprint [-h] [--version] [-e ENCODING] [-f {pdf,png}]
                   [-s STYLESHEET] [-m MEDIA_TYPE] [-r RESOLUTION]
                   [-u BASE_URL] [-a ATTACHMENT] [-p] [-v] [-d] [-q]
@@ -23,7 +23,7 @@ If you want to also have the dev tools active, set the `WEASY_APP` environment v
 * `/` -- displays a textarea where you can input HTML, alongside a PNG rendering of the result
 * `/view/` -- displays a form that lets you input arbitrary URLs and render them as PNG or PDF
 
-Note that none of these tools should be exposed to any external ports as they are not particularly secure (see [WeasyPrint's own security notes](https://weasyprint.readthedocs.io/en/stable/tutorial.html#security) for more on this).  Map the port to localhost or a loopback interface, or simply make it available to its clients via a shared docker network.
+Note that none of these tools should be exposed to any external ports as they are not particularly secure (see [WeasyPrint's own security notes](http://web.archive.org/web/20200722023721/https://weasyprint.readthedocs.io/en/stable/tutorial.html#security) for more on this).  Map the port to localhost or a loopback interface, or simply make it available to its clients via a shared docker network.
 
 By default, the web server runs as user and group `uwsgi` (uid 100, gid 101).  You can change this if needed by setting the container's `WEASY_USER` and `WEASY_GROUP` environment variables.  (Each can be a name or numeric ID, but if names are used they must be present in the container's `/etc/passwd` and `/etc/group` files.)
 
